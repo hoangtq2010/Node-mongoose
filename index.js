@@ -8,26 +8,27 @@ const connect = mongoose.connect(url);
 connect.then((db) => {
     console.log('Connected correctly to server');
 
-    var newDish = Dishes({
+    //var newDish = Dishes({
+    Dishes.create({
         name : 'Happizza',
         description : 'test'
-    });
+    })
 
-    newDish.save()
-        .then((dish) => {
-            console.log(dish);
+    //newDish.save()      //tao nhanh object
+    .then((dish) => {
+        console.log(dish);
 
-            return Dishes.find({}).exec();  //exec: dam bao dieu nay dc thuc hien, tra lai promise 
-        })
-        .then((dishes) => {
-            console.log(dishes);
+        return Dishes.find({}).exec();  //exec: dam bao dieu nay dc thuc hien, tra lai promise 
+    })
+    .then((dishes) => {
+        console.log(dishes);
 
-            return Dishes.remove({});
-        })
-        .then(() => {
-            return mongoose.connection.close();
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        return Dishes.remove({});
+    })
+    .then(() => {
+        return mongoose.connection.close();
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 })
